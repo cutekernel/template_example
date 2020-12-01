@@ -1,0 +1,89 @@
+version: "3.8"
+
+services:
+  node0:   
+    build:
+      context: ./testing-nodes
+    image: tt_node:0.1
+    environment:
+      - TZ=America/New_York
+      - DEBIAN_FRONTEND=noninteractive
+    networks:
+      - ttnet
+    container_name: n0
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    ports:
+      - "1020:22"
+
+
+  node1:
+    image: tt_node:0.1
+    environment:
+      - TZ=America/New_York
+      - DEBIAN_FRONTEND=noninteractive
+    networks:
+      - ttnet
+    container_name: n1
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    ports:
+      - "1021:22"
+
+
+  node2:
+    image: tt_node:0.1
+    environment:
+      - TZ=America/New_York
+      - DEBIAN_FRONTEND=noninteractive
+    networks:
+      - ttnet
+    container_name: n2
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    ports:
+      - "1022:22"
+
+ 
+  node3:
+    image: tt_node:0.1
+    environment:
+      - TZ=America/New_York
+      - DEBIAN_FRONTEND=noninteractive
+    networks:
+      - ttnet
+    container_name: n3
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    ports:
+      - "1023:22"
+
+ 
+  ansible:
+    
+    build:
+      context: ./ansible-docker-image 
+    depends_on:
+      - node0
+      - node1
+      - node2
+      - node3 
+    image: tt_ans:0.1
+    environment:
+      - TZ=America/New_York
+      - DEBIAN_FRONTEND=noninteractive
+      - ANSIBLE_CONFIG=/project/ansible.cfg
+    command: sh -c "/project/start.sh" 
+    networks:
+      - ttnet
+    container_name: ttans0
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    volumes:
+      - ./files:/project
+    ports:
+      - "1024:22"
+
+
+networks:
+  ttnet:

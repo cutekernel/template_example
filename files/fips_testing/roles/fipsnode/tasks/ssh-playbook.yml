@@ -1,0 +1,26 @@
+---
+# usage: ansible-playbook <filename> -k -K [-i <inventory>]
+# The IP addresses of the nodes you wish to manage must either be in the default
+# /etc/ansible/hosts inventory file, or you can specify an alternative inventory
+# by issuing the -i flag with the path/name of the alternative inventory file.
+
+- name: playbook to bootstrap managed ubuntu nodes
+  hosts: all
+  gather_facts: True
+  remote_user: root
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  tasks:
+    # - name: test
+    #   shell: echo "hello" > ~/hello.txt
+      
+    # - name: Install Python
+    #   shell: apt-get update && apt-get install -y python
+
+    - name: ssh key-based authorized login
+      authorized_key: user=root
+                      exclusive=no
+                      key="{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+...
