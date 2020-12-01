@@ -1,5 +1,5 @@
 FROM ubuntu:14.04
-
+# ANSIBLE NODE
 USER root 
 #RUN add-apt-repository ppa:deadsnakes/ppa
 
@@ -115,7 +115,7 @@ RUN /usr/sbin/update-rc.d -f ondemand remove; \
 RUN rm /etc/apt/apt.conf.d/docker-clean
 
 
-#Create Keys
+#Create SSH Keys
 RUN locale-gen en_US.UTF-8
 # RUN ssh-keygen -q -t rsa -N '' -f /root/.ssh/id_rsa && \
 #     cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys && \
