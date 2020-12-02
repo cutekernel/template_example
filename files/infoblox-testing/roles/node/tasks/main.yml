@@ -1,0 +1,4 @@
+---
+# tasks file for node
+# - import_tasks: ../module_playbooks/dns_view.yml
+# - import_tasks: ../lookup_playbooks/get_host_records.yml
